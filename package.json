@@ -1,0 +1,171 @@
+{
+  "name": "flutter-pika-helper",
+  "displayName": "Flutter Base Helper",
+  "description": "",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.56.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:flutter-pika-helper.generate",
+    "onCommand:flutter-pika-helper.createBloc",
+    "onLanguage:dart"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "flutter-pika-helper.eventsToBloc",
+        "title": "Pika: Events to Bloc"
+      },
+      {
+        "command": "flutter-pika-helper.insertRouteCode",
+        "title": "Pika: Insert Route Code"
+      },
+      {
+        "command": "flutter-pika-helper.createBloc",
+        "title": "Pika: Create Bloc"
+      },
+      {
+        "command": "flutter-pika-helper.generate",
+        "title": "Pika: Bloc from Events",
+        "category": "BlocPika",
+        "icon": {
+          "dark": "images/svg/bloc.svg",
+          "light": "images/svg/bloc.svg"
+        }
+      },
+      {
+        "command": "flutter-pika-helper.wrapBlocBuilder",
+        "title": "Pika: Wrap with BlocBuilder",
+        "group": "bloc-pika@3"
+      },
+      {
+        "command": "flutter-pika-helper.wrapBlocListener",
+        "title": "Pika: Wrap with BlocListener",
+        "group": "bloc-pika@3"
+      },
+      {
+        "command": "flutter-pika-helper.wrapBlocConsumer",
+        "title": "Pika: Wrap with BlocConsumer",
+        "group": "bloc-pika@3"
+      },
+      {
+        "command": "flutter-pika-helper.wrapBlocProvider",
+        "title": "Pika: Wrap with BlocProvider",
+        "group": "bloc-pika@3"
+      },
+      {
+        "command": "flutter-pika-helper.wrapRepositoryProvider",
+        "title": "Pika: Wrap with RepositoryProvider",
+        "group": "bloc-pika@3"
+      },
+      {
+        "command": "flutter-pika-helper.wrapMultiBlocProvider",
+        "title": "Pika: Wrap with MultiBlocProvider",
+        "group": "bloc-pika@3"
+      },
+      {
+        "command": "flutter-pika-helper.wrapMultiRepositoryProvider",
+        "title": "Pika: Wrap with MultiRepositoryProvider",
+        "group": "bloc-pika@3"
+      },
+      {
+        "command": "flutter-pika-helper.createConstantsApiRouts",
+        "title": "Pika: Create Constant APIRouts"
+      },
+      {
+        "command": "flutter-pika-helper.createConstantsAssetPaths",
+        "title": "Pika: Create Constant AssetPaths"
+      },
+      {
+        "command": "flutter-pika-helper.createPreferenceService",
+        "title": "Pika: Create Service Preference"
+      },
+      {
+        "command": "flutter-pika-helper.createSessionService",
+        "title": "Pika: Create Service Session"
+      },
+      {
+        "command": "flutter-pika-helper.createSettingsService",
+        "title": "Pika: Create Service Settings"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "flutter-pika-helper.createBloc",
+          "when": "filesExplorerFocus",
+          "group": "bloc-pika@3"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "flutter-pika-helper.generate",
+          "when": "resourceFilename =~ /_bloc/",
+          "group": "navigation@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "flutter-pika-helper.wrapBlocBuilder",
+          "when": "editorLangId == dart",
+          "group": "bloc-pika@3"
+        },
+        {
+          "command": "flutter-pika-helper.wrapBlocListener",
+          "when": "editorLangId == dart",
+          "group": "bloc-pika@3"
+        },
+        {
+          "command": "flutter-pika-helper.wrapBlocConsumer",
+          "when": "editorLangId == dart",
+          "group": "bloc-pika@3"
+        },
+        {
+          "command": "flutter-pika-helper.wrapBlocProvider",
+          "when": "editorLangId == dart",
+          "group": "bloc-pika@3"
+        },
+        {
+          "command": "flutter-pika-helper.wrapRepositoryProvider",
+          "when": "editorLangId == dart",
+          "group": "bloc-pika@3"
+        },
+        {
+          "command": "flutter-pika-helper.wrapMultiBlocProvider",
+          "when": "editorLangId == dart",
+          "group": "bloc-pika@3"
+        },
+        {
+          "command": "flutter-pika-helper.wrapMultiRepositoryProvider",
+          "when": "editorLangId == dart",
+          "group": "bloc-pika@3"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.83.0",
+    "@types/mocha": "^10.0.2",
+    "@types/node": "18.x",
+    "@typescript-eslint/eslint-plugin": "^6.7.3",
+    "@typescript-eslint/parser": "^6.7.3",
+    "eslint": "^8.50.0",
+    "glob": "^10.3.3",
+    "mocha": "^10.2.0",
+    "typescript": "^5.2.2",
+    "@vscode/test-electron": "^2.3.4"
+  }
+}
