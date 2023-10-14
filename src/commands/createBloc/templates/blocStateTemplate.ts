@@ -6,17 +6,14 @@ enum ${blocClassName}Status { initial, loading, success, failure }
 
 class ${blocClassName}State extends Equatable {
 
-  //final Failure? failure;
   final ${blocClassName}Status status;
 
   const ${blocClassName}State({
-    //this.failure,
     this.status = ${blocClassName}Status.initial,
   });
 
   @override
   List<Object?> get props => [
-    //failure,
     status,
   ];
 
@@ -26,11 +23,9 @@ class ${blocClassName}State extends Equatable {
   bool get isFailure => status == ${blocClassName}Status.failure;
 
   ${blocClassName}State copyWith({
-    //Failure? failure,
     ${blocClassName}Status? status,
   }) {
     return ${blocClassName}State(
-    //failure: failure,
     status: status ?? this.status,
     );
   }

@@ -16,7 +16,7 @@ import {
 import { BlocCodeActionProvider } from "./codeActions/blocCodeActionProvider";
 import { createBlocCommand } from "./commands/createBloc/createBlocCommand";
 import { insertRouteCode } from "./commands/insertRouteCode";
-import { addMissingEventHandlers } from "./commands/eventsToBloc";
+import { eventToBloc } from "./commands/eventsToBloc";
 
 type CommandType = {
   command: string;
@@ -26,7 +26,7 @@ type CommandType = {
 
 export function activate(context: vscode.ExtensionContext) {
   //* Insert Route Code
-  context.subscriptions.push(vscode.commands.registerCommand("flutter-pika-helper.eventsToBloc", addMissingEventHandlers));
+  context.subscriptions.push(vscode.commands.registerCommand("flutter-pika-helper.eventsToBloc", eventToBloc));
 
   //* Insert Route Code
   context.subscriptions.push(vscode.commands.registerCommand("flutter-pika-helper.insertRouteCode", insertRouteCode));

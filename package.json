@@ -1,8 +1,11 @@
 {
   "name": "flutter-pika-helper",
-  "displayName": "Flutter Base Helper",
+  "displayName": "Flutter Pika Helper",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.5.0",
+  "license": "MIT",
+  "publisher": "TenraNeko",
+  "icon": "images/logo.png",
   "engines": {
     "vscode": "^1.56.0"
   },
@@ -10,7 +13,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:flutter-pika-helper.generate",
+    "onCommand:flutter-pika-helper.eventsToBloc",
     "onCommand:flutter-pika-helper.createBloc",
     "onLanguage:dart"
   ],
@@ -30,9 +33,8 @@
         "title": "Pika: Create Bloc"
       },
       {
-        "command": "flutter-pika-helper.generate",
+        "command": "flutter-pika-helper.eventsToBloc",
         "title": "Pika: Bloc from Events",
-        "category": "BlocPika",
         "icon": {
           "dark": "images/svg/bloc.svg",
           "light": "images/svg/bloc.svg"
@@ -104,7 +106,7 @@
       ],
       "editor/title": [
         {
-          "command": "flutter-pika-helper.generate",
+          "command": "flutter-pika-helper.eventsToBloc",
           "when": "resourceFilename =~ /_bloc/",
           "group": "navigation@1"
         }
@@ -157,7 +159,7 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.83.0",
+    "@types/vscode": "^1.56.0",
     "@types/mocha": "^10.0.2",
     "@types/node": "18.x",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
@@ -167,5 +169,10 @@
     "mocha": "^10.2.0",
     "typescript": "^5.2.2",
     "@vscode/test-electron": "^2.3.4"
+  },
+  "homepage": "https://github.com/tenraneko/vscode_pika_extention",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tenraneko/vscode_pika_extention.git"
   }
 }
