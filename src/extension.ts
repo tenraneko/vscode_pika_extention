@@ -22,6 +22,7 @@ type CommandType = {
   command: string;
   fileName: string;
   folder: string;
+  isDirectory: boolean;
 };
 
 export function activate(context: vscode.ExtensionContext) {
@@ -36,17 +37,20 @@ export function activate(context: vscode.ExtensionContext) {
 
   //* Files Generator
   const listFilesToCreate: CommandType[] = [
-    { command: "createConstantsApiRouts", fileName: "api_routs", folder: "constants" },
-    { command: "createConstantsAssetPaths", fileName: "asset_paths", folder: "constants" },
-    { command: "createPreferenceService", fileName: "preference_service", folder: "services" },
-    { command: "createSessionService", fileName: "session_service", folder: "services" },
-    { command: "createSettingsService", fileName: "settings_service", folder: "services" },
+    { command: "createColorConstants", fileName: "color_constants", folder: "constants", isDirectory: false },
+    { command: "createInsetsConstants", fileName: "insets_constants", folder: "constants", isDirectory: false },
+    { command: "createConstantsApiRouts", fileName: "api_routs", folder: "constants", isDirectory: false },
+    { command: "createConstantsAssetPaths", fileName: "asset_paths", folder: "constants", isDirectory: false },
+    { command: "createPreferenceService", fileName: "preference_service", folder: "services", isDirectory: false },
+    { command: "createSessionService", fileName: "session_service", folder: "services", isDirectory: false },
+    { command: "createSettingsService", fileName: "settings_service", folder: "services", isDirectory: false },
+    { command: "createDio", fileName: "dio", folder: "services", isDirectory: true },
   ];
 
   listFilesToCreate.forEach((item) => {
     context.subscriptions.push(
       vscode.commands.registerCommand(`flutter-pika-helper.${item.command}`, () => {
-        const filePath = createServiceFile(`${item.fileName}.dart`, item.folder);
+        const filePath = createServiceFile(`${item.fileName}${item.isDirectory ? "" : ".dart"}`, item.folder, item.isDirectory);
         vscode.window.showInformationMessage(`Created ${filePath}`);
       })
     );
@@ -95,19 +99,46 @@ async function wrapper(func: () => Promise<void>) {
   }
 }
 
-function createServiceFile(fileName: string, directory: string) {
+function createServiceFile(fileName: string, directory: string, isDirectory: boolean = false) {
   const projectPath = vscode.workspace.workspaceFolders?.map((folder) => folder.uri.fsPath)[0]!;
   const folderPath = path.join(projectPath, "lib", "core", directory);
-  const filePath = path.join(folderPath, fileName);
-  const templatePath = path.join(__dirname, "../src", "templates", fileName);
+  const targetPath = path.join(folderPath, fileName);
 
   if (!fs.existsSync(folderPath)) {
     fs.mkdirSync(folderPath, { recursive: true });
   }
 
-  // Read the preset code from the template file
-  const fileContents = fs.readFileSync(templatePath, "utf8");
+  if (isDirectory) {
+    // Copy the entire directory recursively
+    copyDirectory(path.join(__dirname, "templates", fileName), targetPath);
+  } else {
+    // Read the preset code from the template file
+    const fileContents = fs.readFileSync(path.join(__dirname, "templates", fileName), "utf8");
 
-  fs.writeFileSync(filePath, fileContents);
-  return filePath;
+    // Write the file contents to the target file
+    fs.writeFileSync(targetPath, fileContents);
+  }
+
+  return targetPath;
+}
+
+// Function to copy a directory recursively
+function copyDirectory(source: string, destination: string) {
+  if (!fs.existsSync(destination)) {
+    fs.mkdirSync(destination, { recursive: true });
+  }
+
+  const files = fs.readdirSync(source);
+
+  files.forEach((file) => {
+    const sourcePath = path.join(source, file);
+    const destPath = path.join(destination, file);
+
+    if (fs.statSync(sourcePath).isDirectory()) {
+      copyDirectory(sourcePath, destPath);
+    } else {
+      const fileContents = fs.readFileSync(sourcePath);
+      fs.writeFileSync(destPath, fileContents);
+    }
+  });
 }

@@ -2,7 +2,7 @@
   "name": "flutter-pika-helper",
   "displayName": "Flutter Pika Helper",
   "description": "",
-  "version": "0.5.0",
+  "version": "0.6.1",
   "license": "MIT",
   "publisher": "TenraNeko",
   "icon": "images/logo.png",
@@ -94,6 +94,18 @@
       {
         "command": "flutter-pika-helper.createSettingsService",
         "title": "Pika: Create Service Settings"
+      },
+      {
+        "command": "flutter-pika-helper.createColorConstants",
+        "title": "Pika: Create Color Constants"
+      },
+      {
+        "command": "flutter-pika-helper.createInsetsConstants",
+        "title": "Pika: Create Insets Constants"
+      },
+      {
+        "command": "flutter-pika-helper.createDio",
+        "title": "Pika: Create DIO Service"
       }
     ],
     "menus": {
@@ -152,11 +164,12 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
-    "compile": "tsc -p ./",
+    "compile": "tsc -p ./ && npm run copy-templates",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
-    "test": "node ./out/test/runTest.js"
+    "test": "node ./out/test/runTest.js",
+    "copy-templates": "xcopy /s /e /i /y src\\templates out\\templates"
   },
   "devDependencies": {
     "@types/vscode": "^1.56.0",
